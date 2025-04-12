@@ -1,24 +1,28 @@
-//
-//  ContentView.swift
-//  DineSync
-//
-//  Created by Pravar Chauhan on 3/30/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appState: AppStateViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            if appState.isWelcomeScreenActive {
+                // 1) Show the welcome screen if not dismissed
+                WelcomeHomePage()
+            } else if let restaurant = appState.selectedRestaurant {
+                // 2) If a restaurant is selected, show the menu screen
+                MenuScreen(restaurant: restaurant)
+            } else {
+                // 3) Otherwise, show the map + restaurant list
+                HomeMapView()
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(AppStateViewModel())
+    }
 }
+

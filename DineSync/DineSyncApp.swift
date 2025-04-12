@@ -1,17 +1,14 @@
-//
-//  DineSyncApp.swift
-//  DineSync
-//
-//  Created by Pravar Chauhan on 3/30/25.
-//
-
 import SwiftUI
 
 @main
 struct DineSyncApp: App {
+    @StateObject private var appState = AppStateViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(appState)
         }
     }
 }
+
