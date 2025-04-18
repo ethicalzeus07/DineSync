@@ -8,12 +8,11 @@ struct HomeMapView: View {
         NavigationView {
             VStack(spacing: 0) {
                 ZStack {
-                    
                     Map(coordinateRegion: $appState.region,
                         interactionModes: .all,
                         showsUserLocation: false,
-                        annotationItems: appState.restaurants) { rest in
-                        MapAnnotation(coordinate: rest.coordinate) {
+                        annotationItems: appState.yelpRestaurants) { rest in
+                        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: rest.latitiude, longitude: rest.longitude)) {
                             VStack {
                                 Text(rest.name)
                                     .font(.footnote)
@@ -82,18 +81,26 @@ struct HomeMapView: View {
                     }
                 }
                 
-                // List of restaurants
-                List(appState.restaurants) { rest in
-                    NavigationLink(destination: MenuScreen(restaurant: rest)) {
+                List(appState.yelpRestaurants) {res in
+                    NavigationLink(destination: YelpMenuScreen(rest: res)) {
                         HStack {
                             Rectangle()
                                 .fill(Color.blue)
                                 .frame(width: 40, height: 40)
                                 .cornerRadius(8)
                                 .overlay(Text("Img").foregroundColor(.white))
-                            Text(rest.name)
+                            Text(res.name)
                             Spacer()
                         }
+                    }
+                    
+                }
+                .onAppear() {
+                    for res in appState.yelpRestaurants {
+                        for itm in res.menu {
+                            print(itm.foodName)
+                        }
+                        print("printed the items!")
                     }
                 }
             }

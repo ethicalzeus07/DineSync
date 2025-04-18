@@ -10,11 +10,17 @@ struct ContentView: View {
                 WelcomeHomePage()
             } else if let restaurant = appState.selectedRestaurant {
                 // 2) If a restaurant is selected, show the menu screen
-                MenuScreen(restaurant: restaurant)
+                YelpMenuScreen(rest: restaurant)
             } else {
                 // 3) Otherwise, show the map + restaurant list
                 HomeMapView()
             }
+        }
+        .onAppear() {
+            if (appState.yelpRestaurants.count == 0) {
+                appState.searchRestaurants()
+            }
+            //appState.getMenu()
         }
     }
 }

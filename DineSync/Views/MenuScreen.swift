@@ -1,5 +1,26 @@
 import SwiftUI
 
+
+struct YelpMenuScreen: View {
+    let rest : YelpRestaurant
+    var body: some View {
+        Text(rest.name)
+            .font(.title)
+            VStack(alignment: .leading) {
+                List(rest.menu) { item in
+                    
+                    Text(item.foodName)
+                        .font(.headline)
+                    Text("$\(item.price) • \(item.details)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+            }
+        
+        //.navigationTitle("Menu")
+        //.navigationBarTitleDisplayMode(.inline)
+    }
+}
 struct MenuScreen: View {
     let restaurant: Restaurant
     
