@@ -47,7 +47,7 @@ class AppStateViewModel: ObservableObject {
         let id = ""
         let headers = ["x-rapidapi-host": "yelp-business-api.p.rapidapi.com", "x-rapidapi-key" : "2f737ab37bmsh45321366090f2f9p17a156jsn20ba0f7b4de5"]
 
-        var request = URLRequest(url: NSURL(string: "https://yelp-business-api.p.rapidapi.com/get_menus?business_id=xTAW1Eewne6_bkvKcQM2Mg")! as URL,
+        var request = URLRequest(url: NSURL(string: "https://yelp-business-api.p.rapidapi.com/get_menus?business_id=\(biz.id)")! as URL,
                                                 cachePolicy: .useProtocolCachePolicy,
                                             timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -64,7 +64,7 @@ class AppStateViewModel: ObservableObject {
                     if let menuItems = dat["menus"] as? [[String : Any]] {
                         //print(menuItems)
                         for itm in menuItems {
-                            print(itm["Food Name"] as! String)
+                            //print(itm["Food Name"] as! String)
                             res.append(YelpMenuItem(foodName: itm["Food Name"] as! String, details: itm["Details"] as! String, price: itm["Price"] as! String))
                         }
 

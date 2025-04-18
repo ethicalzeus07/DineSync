@@ -11,7 +11,8 @@ struct YelpMenuScreen: View {
                     
                     Text(item.foodName)
                         .font(.headline)
-                    Text("$\(item.price) • \(item.details)")
+                    //Note that there is already a $ in item price
+                    Text("\(item.price) • \(item.details)")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
